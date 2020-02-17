@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title>Republique Map</title>
+        <meta name="description" content="POC with PWA"/>
+             
+        <!-- CSS with Loading Screen -->
+        <link rel="stylesheet" type="text/css" href="css/mainStyle.css"/>
+        <link rel="stylesheet" type="text/css" href="css/Style_Add_UI.css"/>
+        <link rel="shortcut icon" type="image/png" href="favicon_escp_europe.ico"/>
+
+        <!-- Manifest file for PWA made with www.pwabuilder.com -->
+        <!-- <link rel='manifest' href='/manifest.webmanifest'> -->
+        <link rel='manifest' href='https://escpeurope.blackboard.com/bbcswebdav/users/stenza/Hebergements/Orientation_Plan_Republique_v0.1/manifest.json'>
+        
+        <!-- Registrer the service worker -->
+        <script>
+        // This is the service worker with the Cache-first network
+        // Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
+
+        // Check compatibility for the browser we're running this in
+        if ("serviceWorker" in navigator) {
+            if (navigator.serviceWorker.controller) {
+                console.log("[PWA Builder] active service worker found, no need to register");
+                } else {
+                    // Register the service worker
+                    navigator.serviceWorker
+                    .register("pwabuilder-sw.js", {
+                        scope: "./"
+                    })
+                    .then(function (reg) {
+                        console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+                    });
+                }
+        }
+        </script>
+
+        <!-- ******** Libs Babylon.JS user .dev during development for better information in console and PEP  ******** -->
+        <script src="js/libs/babylon.js"></script>
+        <script src="js/libs/babylon.glTFFileLoader.min.js"></script>
+        <script src="js/libs/babylon.gui.min.js"></script>
+        <!-- ******** Lib PEP for touch ******** -->
+        <script src="js/libs/pep.min.js"></script> 
+
+    
+    </head>
+    <body>
+        <!-- Loading Screen -->
+        <div id="loadingScreen"></div>
+        <!-- <div id="credits"><a href="https://www.xxx.fr" target="_blank">Go to web site</a></div> -->
+        
+        <!-- **** Top menu **** -->
+        <div id="header">
+            <div class="menutools verticalCenter">
+                        <ul class="menu">
+                                <li id="leftmenu_button" class="leftmenu tooltipped"
+                                    data-position="bottom"
+                                    data-tooltip="Display left menu"
+                                    ng-click="DisplayMenu()"
+                                    ng-cloak
+                                ></li>
+                        </ul>
+            </div>
+            <div class="entry-title verticalCenter">
+                <h1>Title Simple Cube</h1>
+                <h2>Subtitle</h2>
+            </div>
+            <div class="tools verticalCenter">
+                    <ul class="menu">
+                            <li id="fullscreen_button" class="fullscreen tooltipped"
+                                data-position="bottom"
+                                data-tooltip="Plein écran"
+                                ng-click="fullscreen()"
+                                ng-cloak
+                            ></li>
+                            <li id="togglecam_button" class="togglecam tooltipped"
+                            ng-class="{'active': currentCameraIsOrbit}"
+                            data-position="bottom"
+                            data-tooltip="Changer de caméra"
+                            ng-click="cameraToggle()"
+                            ng-show="configuratorReady"
+                            ng-cloak
+                            ></li>
+                    </ul>
+                </div>
+        </div>
+
+
+        <!-- Script UI HTML - CSS -->
+        <script src="js/UI.js"></script>
+        
+        <!-- <canvas id="renderCanvas"></canvas> -->
+        <!-- touch-action="none" for best results from PEP -->
+        <canvas id="renderCanvas" touch-action="none"></canvas>
+
+        <!-- Get the canvas element and Generate the BABYLON 3D engine -->
+        <script type="text/javascript">
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+        // Force Webgl Version 1
+        // var engine = new BABYLON.Engine(canvas, true, {disableWebGL2Support: true, useHighPrecisionFloats: false});
+        </script>
+
+        <!-- ******** Scripts  ******** -->
+        <!-- Loading screen function - need progres bar function in Append Object  -->
+        <script src="js/Loading_Screen.js"></script>
+        
+        
+        <script src="js/Scene.js"></script>
+
+        <!-- Lights -->
+        <script src="js/Lights.js"></script>
+                    
+        <!-- Types of camera -->
+        <!-- <script src="js/Player_FreeCamera.js"></script> -->
+        <script src="js/Player_ArcRotateCamera.js"></script>
+        <!-- <script src="js/Player_UniversalCamera.js"></script> -->
+        <!-- <script src="js/Player.js"></script> -->
+    
+        <!-- Add Objects -->
+        <script src="js/Arena_Append_glTF_Main.js"></script>
+        <!-- <script src="js/Arena_Append_glTF_Main_dev.js"></script> -->
+
+        <!-- Import Babylon Meshs for User Interface if necessary -->
+        <!-- <script src="js/Arena_Babylon_UI.js"></script> -->
+
+        <!-- Imports all others Objects -->
+        <!-- <script src="js/Arena_Babylon_ImportMeshs.js"></script> -->
+        <!-- <script src="js/Arena_Babylon_Append.js"></script> -->
+        <!-- <script src="js/Arena_Babylon_Meshs.js"></script> -->
+        <!-- <script src="js/Arena_gltf.js"></script> -->
+        <!-- <script src="js/Arena_Ground_Collider.js"></script> -->
+
+        <!-- *** Creating the rendering pipeline *** -->
+        <!-- <script src="js/Rendering_Pipeline.js"></script> -->
+
+    </body>
+</html>
